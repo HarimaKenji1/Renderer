@@ -19,13 +19,13 @@ class WalkCommand implements Command{
             this._tmain.Player.SetState(new WalkingState(),this._tmain);
             this._tmain.ifStartMove = true;
 
-            egret.Ticker.getInstance().register(()=>{
+            engine.Ticker.getInstance().register(()=>{
                 if(this._tmain.ifStartMove == false && WalkCommand.canFinish){
                     callback();
                     WalkCommand.canFinish = false;
                 }
                 //console.log("233");
-            },this)
+            })
         }
     }
 
@@ -53,7 +53,7 @@ class FightCommand implements Command{
     execute(callback: Function){
         console.log("开始战斗")
         this.player.SetState(new FightState(),this._tmain);
-        egret.setTimeout(() => {
+        engine.setTimeout(() => {
             if (!this._hasBeenCancelled) {
                 console.log("结束战斗")
                 this.target.BeenAttacked(this.damage);
@@ -64,16 +64,16 @@ class FightCommand implements Command{
                 }
                 callback();
             }
-        }, this, 500)
+        }, 500)
     }
 
     cancel(callback: Function){
         console.log("脱离战斗")
         this._hasBeenCancelled = true;
-        egret.setTimeout(function () {
+        engine.setTimeout(function () {
             this.player.SetState(new IdleState(),this._tmain);
             callback();
-        }, this, 100)
+        }, 100)
 
     }
 
@@ -96,7 +96,7 @@ class TalkCommand implements Command{
         this.NPCToTalk.onNPCClick();
         this._tmain.canMove = false;
 
-        egret.Ticker.getInstance().register(()=>{
+        engine.Ticker.getInstance().register(()=>{
                 if(TalkCommand.canFinish){
                     TalkCommand.canFinish = false;
                     NPC.npcIsChoose = null;
@@ -105,7 +105,7 @@ class TalkCommand implements Command{
                     callback();
                 }
                 //console.log("233");
-            },this)
+            })
     }
 
     cancel(callback: Function){
@@ -148,7 +148,7 @@ class CommandList {
 
     execute() {
         if (this._frozen) {
-            egret.setTimeout(this.execute, this, 100);
+            engine.setTimeout(this.execute, 100);
             return;
         }
 

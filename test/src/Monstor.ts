@@ -3,11 +3,11 @@ enum MonsterState{
     DEAD
 }
 
-class Monster extends egret.DisplayObjectContainer{
+class Monster extends engine.DisplayObjectContainer{
     public name : string;
     public monsterID : string;
     private monsterPictureId : string;
-    public monsterPicture : egret.Bitmap;
+    public monsterPicture : engine.Bitmap;
     private maxHP : number;
     private currentHP : number;
     private state : MonsterState;
@@ -18,8 +18,8 @@ class Monster extends egret.DisplayObjectContainer{
         super();
         this.width = 64;
         this.height = 64;
-        this.monsterPicture = new egret.Bitmap();
-        this.monsterPicture.texture = RES.getRes(pictureId);
+        this.monsterPicture = new engine.Bitmap();
+        this.monsterPicture.texture = engine.RES.getRes(pictureId);
         this.addChild(this.monsterPicture);
         this.monsterPicture.x = 0;
         this.monsterPicture.y = 0;

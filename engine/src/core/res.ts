@@ -1,20 +1,19 @@
 namespace engine {
     export namespace RES {
-        function loadTexture(path: string) {
-            return new Promise(resolve => {
-                var result = new engine.Texture();
-                result.data = new Image();
-                result.data.src = path;
-                result.data.onload = () => {
-                    result.width = result.data.width;
-                    result.height = result.data.height;
-                    resolve(result);
-                }
-            });
-        }
-
-        export async function getRes(path: string) {
-            return await loadTexture(path);
+        var RESOURCE_PATH = "././Resources/";
+        export function getRes(path: string) {
+            // return new Promise(function (resolve, reject) {
+            //     var result = new Image();
+            //     result.src = RESOURCE_PATH + path;
+            //     result.onload = () => {
+            //         resolve(result);
+            //     }
+            // });
+            var result = new Image();
+            result.src = RESOURCE_PATH + path;
+            result.onload = () => {
+                    return(result);
+            }
         }
     }
 }

@@ -57,6 +57,8 @@ export class TouchEventService{
 }
 
 export class TouchEvents {
+    stageX: number;
+    stageY: number;
     type: TouchEventsType;
     func: Function;
     obj: any;
@@ -65,6 +67,8 @@ export class TouchEvents {
 
 
     constructor(type: TouchEventsType, func: Function, obj: any, capture?: boolean, priority?: number) {
+        this.stageX = TouchEventService.stageX;
+        this.stageY = TouchEventService.stageY;
         this.type = type;
         this.func = func;
         this.obj = obj;

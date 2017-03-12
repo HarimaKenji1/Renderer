@@ -1,7 +1,7 @@
-class NPC  extends egret.DisplayObjectContainer implements Observer {
+class NPC  extends engine.DisplayObjectContainer implements Observer {
     public NPCId : string;
-    private NPCBitmap : egret.Bitmap;
-    private emoji : egret.Bitmap;
+    private NPCBitmap : engine.Bitmap;
+    private emoji : engine.Bitmap;
     private dialogue : string[] = [];
     private taskAcceptDialogue : string[] = [];
     private taskSubmitDialogue : string[] = [];
@@ -46,11 +46,11 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
 
         this.touchEnabled = true;
 
-         this.NPCBitmap.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+         this.NPCBitmap.addEventListener(engine.TouchEventsType.CLICK,()=>{
             NPC.npcIsChoose = this;
         },this)
 
-        this.emoji = new egret.Bitmap();
+        this.emoji = new engine.Bitmap();
 
         let rule = (taskList) => {
             for(var taskId in taskList){
@@ -66,14 +66,12 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
 
 
                 if(taskList[taskId].fromNpcId == this.NPCId && taskList[taskId].status == TaskStatus.ACCEPTABLE){
-                   var texture : egret.Texture = RES.getRes("tanhao_yellow_png");
-                   this.emoji.texture = texture;
+                   this.emoji.texture = engine.RES.getRes("tanhao_yellow_png");
                    this.taskList[taskId] = taskList[taskId];
                 }
 
                 if(this.NPCId  == taskList[taskId].toNpcId && taskList[taskId].status == TaskStatus.CAN_SUBMIT){
-                   var texture : egret.Texture = RES.getRes("wenhao_yellow_png");
-                   this.emoji.texture = texture;
+                   this.emoji.texture = engine.RES.getRes("wenhao_yellow_png");
                    this.taskList[taskId] = taskList[taskId];
                 }
             }
@@ -97,16 +95,14 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
 
             if(this.NPCId == task.fromNpcId && task.status == TaskStatus.ACCEPTABLE){
                this.emoji.alpha = 1;
-               var texture : egret.Texture = RES.getRes("tanhao_yellow_png");
-               this.emoji.texture = texture;
+               this.emoji.texture = engine.RES.getRes("tanhao_yellow_png");
                this.taskList[task.id].status = TaskStatus.ACCEPTABLE;
                return;
             }
 
             if(this.NPCId == task.toNpcId && task.status == TaskStatus.CAN_SUBMIT){
                 this.emoji.alpha = 1;
-               var texture : egret.Texture = RES.getRes("wenhao_yellow_png");
-               this.emoji.texture = texture;
+               this.emoji.texture = engine.RES.getRes("wenhao_yellow_png");
                this.taskList[task.id].status = TaskStatus.CAN_SUBMIT;
                this.canSumbitTaskList[task.id] = task;
                //this.canFinishedTaskId = task.id;
@@ -130,8 +126,7 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.canSumbitTaskList[taskId].toNpcId 
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT){
                         this.emoji.alpha = 1;
-                        var texture : egret.Texture = RES.getRes("wenhao_yellow_png");
-                        this.emoji.texture = texture;
+                        this.emoji.texture = engine.RES.getRes("wenhao_yellow_png");
                         return;
                     }
                 }
@@ -139,8 +134,7 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.taskList[taskId].fromNpcId 
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                        this.emoji.alpha = 1;
-                       var texture : egret.Texture = RES.getRes("tanhao_yellow_png");
-                       this.emoji.texture = texture;
+                       this.emoji.texture = engine.RES.getRes("tanhao_yellow_png");;
                        return;
                     }
                 }
@@ -154,8 +148,7 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.canSumbitTaskList[taskId].toNpcId 
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT){
                         this.emoji.alpha = 1;
-                        var texture : egret.Texture = RES.getRes("wenhao_yellow_png");
-                        this.emoji.texture = texture;
+                        this.emoji.texture = engine.RES.getRes("wenhao_yellow_png");
                         return;
                     }
                 }
@@ -163,8 +156,7 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.taskList[taskId].fromNpcId 
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                        this.emoji.alpha = 1;
-                       var texture : egret.Texture = RES.getRes("tanhao_yellow_png");
-                       this.emoji.texture = texture;
+                       this.emoji.texture = engine.RES.getRes("tanhao_yellow_png");
                        return;
                     }
                 }
@@ -257,27 +249,26 @@ class NPC  extends egret.DisplayObjectContainer implements Observer {
     }
 
     public getNPC(){
-        this.NPCBitmap.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+        this.NPCBitmap.addEventListener(engine.TouchEventsType.CLICK,()=>{
             NPC.npcIsChoose = this;
         },this)
     }
 
 
 
-    private createBitmapByName(name:string):egret.Bitmap {
-        var result = new egret.Bitmap();
-        var texture:egret.Texture = RES.getRes(name);
-        result.texture = texture;
+    private createBitmapByName(name:string):engine.Bitmap {
+        var result = new engine.Bitmap();
+        result.texture = engine.RES.getRes(name);
         return result;
     }
 }
 
-class DialoguePanel extends egret.DisplayObjectContainer{
+class DialoguePanel extends engine.DisplayObjectContainer{
 
-    private textField : egret.TextField;
-    private button : egret.Bitmap;
+    private textField : engine.TextField;
+    private button : engine.Bitmap;
     private dialogue : string[] = [];
-    private background : egret.Bitmap;
+    private background : engine.Bitmap;
     private ifAccept : boolean = false;
     private duringTask : Task;
     private duringTaskConditionType : string;
@@ -306,27 +297,27 @@ class DialoguePanel extends egret.DisplayObjectContainer{
         this.addChild(this.background);
         this.background.x = 0;
         this.background.y = 0;
-        this.background.width = 300;
-        this.background.height = 300;
+        this.background.setWidth(300);
+        this.background.setHeight(300);
 
 
         this.button = this.createBitmapByName("jieshou_gray_png");
         this.addChild(this.button);
-        this.button.width = 100;
+        this.button.setWidth(100);
         this.height = 50;
         this.button.x = 100;
         this.button.y = 200;
         this.button.touchEnabled = false;
 
-        this.textField = new egret.TextField();
+        this.textField = new engine.TextField();
         this.addChild(this.textField);
         //this.textField.text = dialogue[0];
         //this.textField.text = "233"
-        this.textField.width = 200;
+        this.textField.setWidth(200);
         this.textField.x = 40;
         this.textField.y = 40;
         this.textField.size = 20;
-        this.textField.textColor = 0xffffff;
+        this.textField.textColor = "0xffffff";
 
         //this.alpha = 1;
 
@@ -340,8 +331,7 @@ class DialoguePanel extends egret.DisplayObjectContainer{
     }
 
     public setButtonBitmap(buttonBitmapCode : string){
-        var texture : egret.Texture = RES.getRes(buttonBitmapCode);
-        this.button.texture = texture;
+        this.button.texture = engine.RES.getRes(buttonBitmapCode);
         // console.log(texture);
         // console.log(this.button.texture);
     }
@@ -378,24 +368,23 @@ class DialoguePanel extends egret.DisplayObjectContainer{
     }
 
     public setBackgroundBitmap(backgroundCode :string){
-        var textureBackground : egret.Texture = RES.getRes("duihuakuang_png");
-                this.background.texture = textureBackground;
+                this.background.texture = engine.RES.getRes("duihuakuang_png");
     }
 
     private onClick(){
-        this.button.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
+        this.button.addEventListener(engine.TouchEventsType.CLICK,()=>{
             console.log("dialogue on click");
             if(this.ifAccept){
                //TaskService.getInstance().accept(this.duringTask.id);
                this.duringTask.accept();
-                var texture : egret.Texture = RES.getRes("wancheng_gray_png");
-                this.button.texture = texture;
+                this.button.texture = engine.RES.getRes("wancheng_gray_png");
                 if(this.duringTask.conditionType == "npctalk"){
                     this.duringTask.updateProccess(1);
                     //TaskService.getInstance().canFinish(this.duringTask.id);
                     //this.duringTask.setCurrent(1);
                 }
-                egret.Tween.get(this).to({alpha : 0},1000);
+                //egret.Tween.get(this).to({alpha : 0},1000);
+                this.alpha = 0;
                 //console.log("1");
                 TalkCommand.canFinish = true;
 
@@ -404,20 +393,19 @@ class DialoguePanel extends egret.DisplayObjectContainer{
             if(!this.ifAccept){
                 //TaskService.getInstance().finish(this.duringTask.id);
                 this.duringTask.submit();
-                var texture : egret.Texture = RES.getRes("jieshou_gray_png");
-                this.button.texture = texture;
+                this.button.texture = engine.RES.getRes("jieshou_gray_png");
                 
-                egret.Tween.get(this).to({alpha : 0},1000);
+                //egret.Tween.get(this).to({alpha : 0},1000);
+                this.alpha = 0;
                 //console.log("2");
                 TalkCommand.canFinish = true;
             }
         },this)
     }
 
-    private createBitmapByName(name:string):egret.Bitmap {
-        var result = new egret.Bitmap();
-        var texture:egret.Texture = RES.getRes(name);
-        result.texture = texture;
+    private createBitmapByName(name:string):engine.Bitmap {
+        var result = new engine.Bitmap();
+        result.texture = engine.RES.getRes(name);
         return result;
     }
 }

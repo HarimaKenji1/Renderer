@@ -2,8 +2,8 @@ namespace engine {
     export let run = (canvas: HTMLCanvasElement) => {
 
         var stage = new DisplayObjectContainer();
-        stage.width = 600;
-        stage.height = 600;
+        stage.setWidth(canvas.width);
+        stage.setHeight(canvas.height);
         let context2D = canvas.getContext("2d");
         var currentTarget;                      //鼠标点击时当前的对象
         var startTarget;                        //mouseDown时的对象

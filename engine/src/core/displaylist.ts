@@ -30,10 +30,25 @@ export abstract class DisplayObject implements Drawable{
     localMatrix = new Matrix();
     globalMatrix = new Matrix();
     listeners : TouchEvents[] = [];
-    width = 1;
-    height = 1;
+    protected width = 1;
+    protected height = 1;
+    touchEnabled = false;
+
+    setWidth(width : number){
+        this.width = width;
+    }
+    setHeight(height : number){
+        this.height = height;
+    }
+    getWidth(){
+        return this.width;
+    }
+    getHeight(){
+        return this.height;
+    }
 
     draw(context2D : CanvasRenderingContext2D){
+
         this.localMatrix.updateFromDisplayObject(this.x,this.y,this.scaleX,this.scaleY,this.rotation);
         if(this.parent){
             this.globalAlpha = this.parent.globalAlpha * this.alpha;
@@ -66,6 +81,16 @@ export abstract class DisplayObject implements Drawable{
         child.parent = this;
     }
 
+    removeChild(child : DisplayObject){
+        let i = 0
+        for(i = 0;i <= this.childArray.length - 1;i++){
+            if(this.childArray[i] == child){
+                break;
+            }
+        }
+        this.childArray.splice(i);
+    }
+
     render(context2D : CanvasRenderingContext2D){
         for(let displayObject of this.childArray){
             displayObject.draw(context2D);
@@ -73,10 +98,11 @@ export abstract class DisplayObject implements Drawable{
     }
 
     hitTest(x : number,y: number) : DisplayObject{
+    if(this.touchEnabled){
         var rect = new Rectangle();
         rect.x = rect.y = 0;
-        rect.width = this.width;
-        rect.height = this.height;
+        rect.width = this.getWidth();
+        rect.height = this.getHeight();
         var result = null;
         if(rect.isPointInRectangle(x,y)){
             result = this;
@@ -98,6 +124,7 @@ export abstract class DisplayObject implements Drawable{
         }
 
         return null;
+    }
     }
 }
 
@@ -122,6 +149,7 @@ export class TextField extends DisplayObject{
     }
 
     hitTest(x : number,y :number){
+        if(this.touchEnabled){
         var rect = new Rectangle();
         rect.x = rect.y = 0;
         rect.width = this.size * this.text.length;
@@ -132,6 +160,7 @@ export class TextField extends DisplayObject{
         }
         else{
             return null;
+        }
         }
     }
 
@@ -165,40 +194,50 @@ export class TextField extends DisplayObject{
 export class Bitmap extends DisplayObject{
 
     imageID = "";
-    texture : Texture;
-    image : HTMLImageElement;
+    texture;
 
 
     constructor(imageID? : string){
         super();
-        // this.imageID = id;
-        // this.image = new Image();
-        // this.image.src = this.imageID;
-        // this.image.onload = () =>{
-        //     this.width = this.image.width;
-        //     this.height = this.image.height;
+        this.imageID = imageID;
+        this.texture = new Image();
+        this.texture.src = this.imageID;
+        this.texture.onload = () =>{
+            this.width = this.texture.width;
+            this.height = this.texture.height;
+        }
+        // this.texture.onload = () =>{
+        //     this.width = this.texture.width;
+        //     this.height = this.texture.height;
         // }
-        RES.getRes(imageID).then(value=>{
-                console.log("load complete "+value);
-            })
+        // RES.getRes(imageID).then((value)=>{
+        //     this.texture = value;
+        //     this.setWidth(this.texture.width);
+        //     this.setHeight(this.texture.height);
+        //     // this.width = this.texture.width;
+        //     // this.height = this.texture.height;
+        //     // this.image = this.texture.data;
+        //     console.log("load complete "+value);
+        // })
     }
 
     render(context2D : CanvasRenderingContext2D){
-        if(this.image){
-            context2D.drawImage(this.image,0,0);
+        if(this.texture){
+            context2D.drawImage(this.texture,0,0);
         }
         else{
-            this.image.onload = () =>{
-                context2D.drawImage(this.image,0,0);
+            this.texture.onload = () =>{
+                context2D.drawImage(this.texture,0,0);
             }
         }
     }
 
     hitTest(x : number,y :number){
+        if(this.touchEnabled){
         var rect = new Rectangle();
         rect.x = rect.y = 0;
-        rect.width = this.image.width;
-        rect.height = this.image.height;
+        rect.width = this.width;
+        rect.height = this.height;
         if(rect.isPointInRectangle(x,y)){
             TouchEventService.getInstance().addPerformer(this);
             return this;
@@ -206,11 +245,12 @@ export class Bitmap extends DisplayObject{
         else{
             return null;
         }
+        }
     }
 
-    setImage(text){
-        this.imageID = text;
-    }
+    // setImage(text){
+    //     this.imageID = text;
+    // }
 
     setX(x){
         this.x = x;
@@ -218,6 +258,14 @@ export class Bitmap extends DisplayObject{
 
     setY(y){
         this.y = y;
+    }
+    setWidth(width : number){
+        this.width = width;
+        this.scaleX = this.width / this.texture.width;
+    }
+    setHeight(height : number){
+        this.height = height;
+        this.scaleY = this.height / this.texture.height;
     }
 
     

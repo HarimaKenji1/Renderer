@@ -31,114 +31,113 @@
 
 
 
-class Main extends egret.DisplayObjectContainer {
+class Main extends engine.DisplayObjectContainer {
 
     /**
      * 加载进度界面
      * Process interface loading
      */
-    private loadingView:LoadingUI;
+    stage;
 
-    public constructor() {
+    constructor(stage:engine.DisplayObjectContainer){
         super();
-        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        
+        this.stage = stage;
     }
 
-    private onAddToStage(event:egret.Event) {
-        //设置加载进度界面
-        //Config to load process interface
-        this.loadingView = new LoadingUI();
-        this.stage.addChild(this.loadingView);
+    // private onAddToStage(event:egret.Event) {
+    //     //设置加载进度界面
+    //     //Config to load process interface
+    //     this.loadingView = new LoadingUI();
+    //     this.stage.addChild(this.loadingView);
 
-        //初始化Resource资源加载库
-        //initiate Resource loading library
-        RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.loadConfig("resource/default.res.json", "resource/");
-    }
+    //     //初始化Resource资源加载库
+    //     //initiate Resource loading library
+    //     RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
+    //     RES.loadConfig("resource/default.res.json", "resource/");
+    // }
 
     /**
      * 配置文件加载完成,开始预加载preload资源组。
      * configuration file loading is completed, start to pre-load the preload resource group
      */
-    private onConfigComplete(event:RES.ResourceEvent):void {
-        RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-        RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-        RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-        RES.loadGroup("preload");
-    }
+    // private onConfigComplete(event:RES.ResourceEvent):void {
+    //     RES.removeEventListener(RES.ResourceEvent.CONFIG_COMPLETE, this.onConfigComplete, this);
+    //     RES.addEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
+    //     RES.addEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+    //     RES.addEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+    //     RES.addEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+    //     RES.loadGroup("preload");
+    // }
 
     /**
      * preload资源组加载完成
      * Preload resource group is loaded
      */
-    private onResourceLoadComplete(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.stage.removeChild(this.loadingView);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
-            RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
-            RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
-            this.createGameScene();
-        }
-    }
+    // private onResourceLoadComplete(event:RES.ResourceEvent):void {
+    //     if (event.groupName == "preload") {
+    //         this.stage.removeChild(this.loadingView);
+    //         RES.removeEventListener(RES.ResourceEvent.GROUP_COMPLETE, this.onResourceLoadComplete, this);
+    //         RES.removeEventListener(RES.ResourceEvent.GROUP_LOAD_ERROR, this.onResourceLoadError, this);
+    //         RES.removeEventListener(RES.ResourceEvent.GROUP_PROGRESS, this.onResourceProgress, this);
+    //         RES.removeEventListener(RES.ResourceEvent.ITEM_LOAD_ERROR, this.onItemLoadError, this);
+    //         this.createGameScene();
+    //     }
+    // }
 
     /**
      * 资源组加载出错
      *  The resource group loading failed
      */
-    private onItemLoadError(event:RES.ResourceEvent):void {
-        console.warn("Url:" + event.resItem.url + " has failed to load");
-    }
+    // private onItemLoadError(event:RES.ResourceEvent):void {
+    //     console.warn("Url:" + event.resItem.url + " has failed to load");
+    // }
 
     /**
      * 资源组加载出错
      *  The resource group loading failed
      */
-    private onResourceLoadError(event:RES.ResourceEvent):void {
-        //TODO
-        console.warn("Group:" + event.groupName + " has failed to load");
-        //忽略加载失败的项目
-        //Ignore the loading failed projects
-        this.onResourceLoadComplete(event);
-    }
+    // private onResourceLoadError(event:RES.ResourceEvent):void {
+    //     //TODO
+    //     console.warn("Group:" + event.groupName + " has failed to load");
+    //     //忽略加载失败的项目
+    //     //Ignore the loading failed projects
+    //     this.onResourceLoadComplete(event);
+    // }
 
     /**
      * preload资源组加载进度
      * Loading process of preload resource group
      */
-    private onResourceProgress(event:RES.ResourceEvent):void {
-        if (event.groupName == "preload") {
-            this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
-        }
-    }
+    // private onResourceProgress(event:RES.ResourceEvent):void {
+    //     if (event.groupName == "preload") {
+    //         this.loadingView.setProgress(event.itemsLoaded, event.itemsTotal);
+    //     }
+    // }
 
-    private textfield:egret.TextField;
-    private EventPoint : egret.Point = new egret.Point();
-    public IdlePictures:egret.Bitmap[] = [
+    private textfield:engine.TextField;
+    private EventPoint : engine.Point = new engine.Point(0,0);
+    public IdlePictures:engine.Bitmap[] = [
         this.createBitmapByName("0008_png"),this.createBitmapByName("0009_png"),this.createBitmapByName("0010_png"),
         this.createBitmapByName("0011_png"),this.createBitmapByName("0012_png"),this.createBitmapByName("0013_png"),
         this.createBitmapByName("0014_png"),this.createBitmapByName("0015_png"),this.createBitmapByName("0016_png"),
         this.createBitmapByName("0017_png"),this.createBitmapByName("0018_png"),this.createBitmapByName("0019_png")];
 
-    public WalkingRightPictures:egret.Bitmap[] = [
+    public WalkingRightPictures:engine.Bitmap[] = [
         this.createBitmapByName("0024_png"),this.createBitmapByName("0025_png"),this.createBitmapByName("0026_png"),
         this.createBitmapByName("0027_png"),this.createBitmapByName("0028_png"),this.createBitmapByName("0029_png"),
         this.createBitmapByName("0030_png"),this.createBitmapByName("0031_png"),this.createBitmapByName("0032_png"),
         this.createBitmapByName("0033_png"),this.createBitmapByName("0034_png")];
 
-    public WalkingLeftPictures:egret.Bitmap[] = [
+    public WalkingLeftPictures:engine.Bitmap[] = [
         this.createBitmapByName("0024_2_png"),this.createBitmapByName("0025_2_png"),this.createBitmapByName("0026_2_png"),
         this.createBitmapByName("0027_2_png"),this.createBitmapByName("0028_2_png"),this.createBitmapByName("0029_2_png"),
         this.createBitmapByName("0030_2_png"),this.createBitmapByName("0031_2_png"),this.createBitmapByName("0032_2_png"),
         this.createBitmapByName("0033_2_png"),this.createBitmapByName("0034_2_png")];
 
     public Player : Person;
-    private GoalPoint : egret.Point = new egret.Point();
-    private DistancePoint : egret.Point = new egret.Point();
-    private Stage01Background : egret.Bitmap;
+    private GoalPoint : engine.Point = new engine.Point(-1,-1);
+    private DistancePoint : engine.Point = new engine.Point(-1,-1);
+    private Stage01Background : engine.Bitmap;
     private MoveTime = 0;
     private map01 : TileMap;
     private astar : AStar;
@@ -178,7 +177,7 @@ class Main extends egret.DisplayObjectContainer {
     private shoes : Armor;
     private weaponJewel : Jewel;
     private armorJewel : Jewel;
-    private userPanelButton : egret.Bitmap;
+    private userPanelButton : engine.Bitmap;
     
     private commandList : CommandList;
 
@@ -249,7 +248,7 @@ class Main extends egret.DisplayObjectContainer {
 
         
         this.addChild(this.taskPanel);
-        this.taskPanel.x = this.stage.width - this.taskPanel.width;
+        this.taskPanel.x = this.stage.width - this.taskPanel.getWidth();
         this.taskPanel.y = 0;
 
         
@@ -299,7 +298,7 @@ class Main extends egret.DisplayObjectContainer {
 
         this.userPanelButton = this.createBitmapByName("userPanelButton_png");
         this.addChild(this.userPanelButton);
-        this.userPanelButton.x = 10 * 64 - this.userPanelButton.width;
+        this.userPanelButton.x = 10 * 64 - this.userPanelButton.getWidth();
         this.userPanelButton.y = 0;
 
 
@@ -365,12 +364,12 @@ class Main extends egret.DisplayObjectContainer {
          this.userPanel = new UserPanel();
          //this.addChild(this.userPanel);
          this.userPanel.showHeroInformation(this.hero);
-         this.userPanel.x = (this.stage.width - this.userPanel.width) / 2;
-         this.userPanel.y = (this.stage.height - this.userPanel.height) / 2;
+         this.userPanel.x = (this.stage.width - this.userPanel.getWidth()) / 2;
+         this.userPanel.y = (this.stage.height - this.userPanel.getHeight()) / 2;
 
          //this.userPanel.equipmentInformationPanel.showEquipmentInformation(this.sword);
 
-         this.userPanelButton.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e : egret.TouchEvent)=>{
+         this.userPanelButton.addEventListener(engine.TouchEventsType.CLICK,(e : engine.TouchEvents)=>{
             this.addChild(this.userPanel);
             this.userPanel.showHeroInformation(this.hero);
             //console.log("upbdown");
@@ -383,13 +382,13 @@ class Main extends egret.DisplayObjectContainer {
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
         //RES.getResAsync("description_json", this.startAnimation, this)
-            this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN,(e : egret.TouchEvent)=>{
+            this.stage.addEventListener(engine.TouchEventsType.MOUSEDOWN,(e : engine.TouchEvents)=>{
             //egret.Tween.removeTweens(this.Player.PersonBitmap);
             //this.ifStartMove = true;
             //var tempTile : Tile;
             NPC.npcIsChoose = null;
             this.ifFight = false;
-            if(this.userPanelIsOn && (e.stageX < this.userPanel.x || e.stageX > this.userPanel.x + this.userPanel.width || e.stageY < this.userPanel.y || e.stageY > this.userPanel.y + this.userPanel.height) ){
+            if(this.userPanelIsOn && (e.stageX < this.userPanel.x || e.stageX > this.userPanel.x + this.userPanel.getWidth() || e.stageY < this.userPanel.y || e.stageY > this.userPanel.y + this.userPanel.getHeight()) ){
             this.removeChild(this.userPanel);
             this.userPanelIsOn = false;
             }
@@ -463,7 +462,7 @@ class Main extends egret.DisplayObjectContainer {
             if(this.ifFindAWay)
             this.map01.startTile = this.map01.endTile;
 
-            if(this.EventPoint.x >= this.userPanelButton.x && this.EventPoint.y <= this.userPanelButton.height){
+            if(this.EventPoint.x >= this.userPanelButton.x && this.EventPoint.y <= this.userPanelButton.getHeight()){
                 this.addChild(this.userPanel);
                 this.userPanel.showHeroInformation(this.hero);
                 this.userPanelIsOn = true;
@@ -502,10 +501,8 @@ class Main extends egret.DisplayObjectContainer {
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
-    private createBitmapByName(name:string):egret.Bitmap {
-        var result = new egret.Bitmap();
-        var texture:egret.Texture = RES.getRes(name);
-        result.texture = texture;
+    private createBitmapByName(name:string):engine.Bitmap {
+        var result = new engine.Bitmap(name);
         return result;
     }
 
@@ -549,7 +546,7 @@ class Main extends egret.DisplayObjectContainer {
        var self:any = this;
        var getDistance;
        
-    egret.Ticker.getInstance().register(()=>{
+    engine.Ticker.getInstance().register(()=>{
     if(this.ifStartMove && self.ifFindAWay){
        if(self.currentPath < self.astar.pathArray.length - 1){ 
             var distanceX = self.astar.pathArray[self.currentPath + 1].x - self.astar.pathArray[self.currentPath].x ;
@@ -612,7 +609,7 @@ class Main extends egret.DisplayObjectContainer {
             console.log("PM");
         }
     }
-        },self)
+        })
 
 
     //    for( self.currentPath = 0 ; self.currentPath < self.astar.pathArray.length - 1; self.currentPath++){
@@ -632,22 +629,22 @@ class Main extends egret.DisplayObjectContainer {
 
 
 
-    public PictureMove(pic : egret.Bitmap):void{
-        var self:any = this;
-        var MapMove:Function = function (){
-            egret.Tween.removeTweens(pic);
-            var dis = self.Player.PersonBitmap.x - self.EventPoint.x;
-        if(self.Player.GetIfGoRight() && pic.x >= - (pic.width - self.stage.stageWidth) ){
-            egret.Tween.get(pic).to({x : pic.x - Math.abs(dis)},self.MoveTime);
-        }
+    // public PictureMove(pic : engine.Bitmap):void{
+    //     var self:any = this;
+    //     var MapMove:Function = function (){
+    //         egret.Tween.removeTweens(pic);
+    //         var dis = self.Player.PersonBitmap.x - self.EventPoint.x;
+    //     if(self.Player.GetIfGoRight() && pic.x >= - (pic.width - self.stage.stageWidth) ){
+    //         egret.Tween.get(pic).to({x : pic.x - Math.abs(dis)},self.MoveTime);
+    //     }
 
-        if(self.Player.GetIfGoLeft() && pic.x <= 0){
-            egret.Tween.get(pic).to({x : pic.x + Math.abs(dis)},self.MoveTime);
-        }
-        //egret.Tween.get(pic).call(MapMove,self);
-        }
-        MapMove();
-    }
+    //     if(self.Player.GetIfGoLeft() && pic.x <= 0){
+    //         egret.Tween.get(pic).to({x : pic.x + Math.abs(dis)},self.MoveTime);
+    //     }
+    //     //egret.Tween.get(pic).call(MapMove,self);
+    //     }
+    //     MapMove();
+    // }
 
 
     public IfOnGoal(tile : Tile) : any{
@@ -679,7 +676,7 @@ class Main extends egret.DisplayObjectContainer {
             //var playerBitmap = egret.Tween.get(self.Player.PersonBitmap);
                
                 
-                egret.Ticker.getInstance().register(()=>{
+                engine.Ticker.getInstance().register(()=>{
                 if(zhen % 4 == 0){
                     
                     if(self.Player.GetIfIdle() && !self.Player.GetIfWalk() && !self.Player.GetIfFight()){
@@ -687,8 +684,8 @@ class Main extends egret.DisplayObjectContainer {
                     GOL = 0;
                     fight = 0;
                     var textureName = "00" + standArr[n] + "_png";
-                    var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = texture;
+                    //var texture : egret.Texture = RES.getRes(textureName);
+                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
                     n++;
                     if(n >= standArr.length){
                           n=0;
@@ -703,8 +700,8 @@ class Main extends egret.DisplayObjectContainer {
                         GOL = 0;
                         fight = 0;
                     var textureName = "00" + walkRightArr[GOR] + "_png";
-                    var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = texture;
+                    //var texture : egret.Texture = RES.getRes(textureName);
+                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
                     GOR++;
                     if(GOR >= walkRightArr.length){
                           GOR=0;
@@ -716,8 +713,8 @@ class Main extends egret.DisplayObjectContainer {
                               GOR = 0;
                               fight = 0;
                     var textureName = "00" + walkRightArr[GOL] + "_2_png";
-                    var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = texture;
+                    //var texture : egret.Texture = RES.getRes(textureName);
+                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
                     GOL++;
                     if(GOL >= walkRightArr.length){
                           GOL=0;
@@ -732,8 +729,8 @@ class Main extends egret.DisplayObjectContainer {
                         n = 0;
                         
                         var textureName = "020" + fightArr[fight] + "_png";
-                        var texture : egret.Texture = RES.getRes(textureName);
-                        self.Player.PersonBitmap.texture = texture;
+                        //var texture : egret.Texture = RES.getRes(textureName);
+                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
                         fight++;
                         if(fight >= fightArr.length){
                             fight = 0;
@@ -751,7 +748,7 @@ class Main extends egret.DisplayObjectContainer {
                     //  //console.log("PA");
                     // }
 
-                },self);
+                });
 
                 // var texture : egret.Texture = self.IdlePictures[n];
                 // self.PlayerPic.texture = texture;
@@ -774,11 +771,11 @@ class Main extends egret.DisplayObjectContainer {
         
 
         var FramePlus : Function = function(){
-            egret.Ticker.getInstance().register(()=>{
+            engine.Ticker.getInstance().register(()=>{
             zhen++;
             if(zhen == 400)
             zhen = 0;
-            },self)
+            })
         }
 
 
@@ -833,7 +830,7 @@ class Main extends egret.DisplayObjectContainer {
 
 
 class Person{
-    public PersonBitmap : egret.Bitmap;
+    public PersonBitmap : engine.Bitmap;
     private IsIdle : boolean;
     private IsWalking : boolean;
     private GoRight : boolean = false;
@@ -843,9 +840,9 @@ class Person{
     private LeftOrRightStateMachine : StateMachine;
 
     constructor(){
-        this.PersonBitmap = new egret.Bitmap();
-        this.PersonBitmap.width = 49;
-        this.PersonBitmap.height = 64;
+        this.PersonBitmap = new engine.Bitmap();
+        this.PersonBitmap.setWidth(49);
+        this.PersonBitmap.setHeight(64);
         // this.PersonBitmap.anchorOffsetX = 2 * this.PersonBitmap.width / 3;
         // this.PersonBitmap.anchorOffsetY = this.PersonBitmap.height;
         this.IsIdle = true;
@@ -856,7 +853,7 @@ class Person{
 
     }
 
-    public SetPersonBitmap(picture:egret.Bitmap){
+    public SetPersonBitmap(picture:engine.Bitmap){
         this.PersonBitmap = picture;
     }
 
@@ -903,10 +900,8 @@ class Person{
         return this.GoLeft;
     }
 
-    private createBitmapByName(name:string):egret.Bitmap {
-        var result = new egret.Bitmap();
-        var texture:egret.Texture = RES.getRes(name);
-        result.texture = texture;
+    private createBitmapByName(name:string):engine.Bitmap {
+        var result = new engine.Bitmap(name);
         return result;
     }
 

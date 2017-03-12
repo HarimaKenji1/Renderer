@@ -1,7 +1,6 @@
 var Cache: MethodDecorator = (target : any,propertyKey,descriptor : PropertyDescriptor) => {
     const method = descriptor.value;
     descriptor.value = function(){
-        //console.log(target,propertyKey)
         var cacheKey = "__cache" + propertyKey;
         if(!target[cacheKey]){
             target[cacheKey] = method.apply(this);

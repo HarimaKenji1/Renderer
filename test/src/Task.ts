@@ -329,11 +329,11 @@ function creatTaskCondition(id: string) {
         return new Task(id, info.name, info.desc, info.total, info.status, condition, info.condition,info.fromNpcId, info.toNpcId,info.preTaskListId,info.rewardEquipmentId);
     }
 
-class TaskPanel extends egret.DisplayObjectContainer implements Observer {
+class TaskPanel extends engine.DisplayObjectContainer implements Observer {
 
-    textField: egret.TextField;
+    textField: engine.TextField;
     //button : egret.Bitmap;
-    background: egret.Bitmap;
+    background: engine.Bitmap;
     show: string[] = [];
     private taskList: Task[] = [];
     private ifAccept: boolean;
@@ -347,21 +347,21 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
 
         this.background = this.createBitmapByName("renwumianbanbeijing_png");
         this.addChild(this.background);
-        this.background.width = 256;
-        this.background.height = 317;
+        this.background.setWidth(256);
+        this.background.setHeight(317);
         this.background.x = 0;
         this.background.y = 0;
 
-        this.textField = new egret.TextField();
+        this.textField = new engine.TextField();
         this.addChild(this.textField);
         this.textField.x = this.width / 2 - 100;
         this.textField.y = this.height / 2;
 
 
         this.textField.size = 15;
-        this.textField.textColor = 0x000000;
+        this.textField.textColor = "0x000000";
         this.addChild(this.textField);
-        this.textField.width = 200;
+        this.textField.setWidth(200);
         this.textField.x = 30;
         this.textField.y = 80;
 
@@ -395,10 +395,9 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
     }
 
 
-    private createBitmapByName(name: string): egret.Bitmap {
-        var result = new egret.Bitmap();
-        var texture: egret.Texture = RES.getRes(name);
-        result.texture = texture;
+    private createBitmapByName(name: string): engine.Bitmap {
+        var result = new engine.Bitmap();
+        result.texture = engine.RES.getRes(name);
         return result;
     }
 
@@ -413,7 +412,8 @@ class TaskPanel extends egret.DisplayObjectContainer implements Observer {
         TaskService.getInstance().getTaskByCustomRule(rule);
         for (var i = 0; i < this.taskList.length; i++) {
             if (this.taskList[i].id == task.id) {
-                egret.Tween.get(this).to({ alpha: 1 }, 500);
+                this.alpha = 1;
+                //egret.Tween.get(this).to({ alpha: 1 }, 500);
                 //this.button.touchEnabled = true;
                 // if (this.taskList[i].status == TaskStatus.ACCEPTABLE) {
                 //     this.ifAccept = true;

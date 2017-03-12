@@ -15,17 +15,18 @@ namespace engine {
         y = 0;
         width = 1;
         height = 1;
-        isPointInRectangle(point: Point) {
-            let rect = this;
-            if (point.x < rect.width + rect.x &&
-                point.y < rect.height + rect.y &&
-                point.x > rect.x &&
-                point.y > rect.y) {
-                return true;
-            }
-            else {
-                return false;
-            }
+        isPointInRectangle(x : number,y:number) {
+            var point = new Point(x,y);
+            var rect = this;
+            if(point.x < rect.x + rect.width &&
+               point.x > rect.x &&
+               point.y < rect.y + rect.height &&
+               point.y > rect.y){
+                   return true;
+               }
+               else{
+                   return false;
+               }
         }
     }
 

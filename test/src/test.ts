@@ -1,10 +1,12 @@
 var canvas = document.getElementById("app") as HTMLCanvasElement;
 var stage = engine.run(canvas);
-var bitmap = new engine.Bitmap("././Resource/0008.png");
+var bitmap = new engine.Bitmap("wander-icon.jpg");
 stage.addChild(bitmap);
-let speed = 10;
+let speed = 190;
 
 engine.Ticker.getInstance().register((deltaTime) => {
     console.log("aaa");
+    speed += 1;
+    bitmap.setWidth(500);
 });
 

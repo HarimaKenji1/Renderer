@@ -22,8 +22,8 @@ export abstract class DisplayObject implements Drawable{
     parent : DisplayObjectContainer;
     alpha = 1;
     globalAlpha = 1;
-    scaleX = 1;
-    scaleY = 1;
+    protected scaleX = 1;
+    protected scaleY = 1;
     x = 0;
     y = 0;
     rotation = 0;
@@ -33,12 +33,22 @@ export abstract class DisplayObject implements Drawable{
     protected width = 1;
     protected height = 1;
     touchEnabled = false;
+    protected normalWidth = -1;
+    protected normalHeight = -1;
 
     setWidth(width : number){
         this.width = width;
     }
     setHeight(height : number){
         this.height = height;
+    }
+    setScaleX(scalex){
+        this.scaleX = scalex;
+        this.width = this.width * this.scaleX;
+    }
+    setScaleY(scaley){
+        this.scaleY = scaley;
+        this.height = this.height * this.scaleY;
     }
     getWidth(){
         return this.width;
@@ -48,6 +58,14 @@ export abstract class DisplayObject implements Drawable{
     }
 
     draw(context2D : CanvasRenderingContext2D){
+
+        if(this.normalWidth > 0){
+            this.scaleX = this.width / this.normalWidth;
+        }
+
+        if(this.normalHeight > 0){
+            this.scaleY = this.height / this.normalHeight;
+        }
 
         this.localMatrix.updateFromDisplayObject(this.x,this.y,this.scaleX,this.scaleY,this.rotation);
         if(this.parent){
@@ -194,42 +212,41 @@ export class TextField extends DisplayObject{
 export class Bitmap extends DisplayObject{
 
     imageID = "";
-    texture;
+    texture ;
 
 
     constructor(imageID? : string){
         super();
         this.imageID = imageID;
-        this.texture = new Image();
-        this.texture.src = this.imageID;
-        this.texture.onload = () =>{
-            this.width = this.texture.width;
-            this.height = this.texture.height;
-        }
+        // this.texture = new Image();
+        // this.texture.src = this.imageID;
         // this.texture.onload = () =>{
         //     this.width = this.texture.width;
         //     this.height = this.texture.height;
         // }
-        // RES.getRes(imageID).then((value)=>{
-        //     this.texture = value;
-        //     this.setWidth(this.texture.width);
-        //     this.setHeight(this.texture.height);
-        //     // this.width = this.texture.width;
-        //     // this.height = this.texture.height;
-        //     // this.image = this.texture.data;
-        //     console.log("load complete "+value);
-        // })
+        RES.getRes(imageID).then((value)=>{
+            this.texture = value;
+            this.setWidth(this.texture.width);
+            this.setHeight(this.texture.height);
+            this.normalWidth = this.texture.width;
+            this.normalHeight = this.texture.height;
+            // this.width = this.texture.width;
+            // this.height = this.texture.height;
+            // this.image = this.texture.data;
+            console.log("load complete "+value);
+            console.log(this.width + " hi! " + this.height);
+        })
     }
 
     render(context2D : CanvasRenderingContext2D){
         if(this.texture){
             context2D.drawImage(this.texture,0,0);
         }
-        else{
-            this.texture.onload = () =>{
-                context2D.drawImage(this.texture,0,0);
-            }
-        }
+        // else{
+        //     this.texture.onload = () =>{
+        //         context2D.drawImage(this.texture,0,0);
+        //     }
+        // }
     }
 
     hitTest(x : number,y :number){
@@ -259,14 +276,14 @@ export class Bitmap extends DisplayObject{
     setY(y){
         this.y = y;
     }
-    setWidth(width : number){
-        this.width = width;
-        this.scaleX = this.width / this.texture.width;
-    }
-    setHeight(height : number){
-        this.height = height;
-        this.scaleY = this.height / this.texture.height;
-    }
+    // setWidth(width : number){
+    //     this.width = width;
+    //     this.scaleX = this.width / this.texture.width;
+    // }
+    // setHeight(height : number){
+    //     this.height = height;
+    //     this.scaleY = this.height / this.texture.height;
+    // }
 
     
 

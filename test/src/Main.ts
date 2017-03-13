@@ -38,10 +38,12 @@ class Main extends engine.DisplayObjectContainer {
      * Process interface loading
      */
     stage;
+    touchEvnetSetvice;
 
-    constructor(stage:engine.DisplayObjectContainer){
+    constructor(stage:engine.DisplayObjectContainer,touchEventService : engine.TouchEventService){
         super();
         this.stage = stage;
+        this.touchEvnetSetvice = touchEventService;
     }
 
     // private onAddToStage(event:egret.Event) {
@@ -388,7 +390,7 @@ class Main extends engine.DisplayObjectContainer {
             //var tempTile : Tile;
             NPC.npcIsChoose = null;
             this.ifFight = false;
-            if(this.userPanelIsOn && (e.stageX < this.userPanel.x || e.stageX > this.userPanel.x + this.userPanel.getWidth() || e.stageY < this.userPanel.y || e.stageY > this.userPanel.y + this.userPanel.getHeight()) ){
+            if(this.userPanelIsOn && (engine.TouchEventService.stageX < this.userPanel.x || engine.TouchEventService.stageX > this.userPanel.x + this.userPanel.getWidth() || engine.TouchEventService.stageY < this.userPanel.y || engine.TouchEventService.stageY > this.userPanel.y + this.userPanel.getHeight()) ){
             this.stage.removeChild(this.userPanel);
             this.userPanelIsOn = false;
             }
@@ -404,8 +406,8 @@ class Main extends engine.DisplayObjectContainer {
             
             this.currentPath = 0;
             //console.log(playerx + " And " + playery);
-            this.EventPoint.x = e.stageX;
-            this.EventPoint.y = e.stageY;
+            this.EventPoint.x = engine.TouchEventService.stageX;
+            this.EventPoint.y = engine.TouchEventService.stageY;
             this.tileX = Math.floor(this.EventPoint.x / this.tileSize);
             this.tileY = Math.floor(this.EventPoint.y / this.tileSize);
 

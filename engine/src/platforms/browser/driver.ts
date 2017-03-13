@@ -1,7 +1,7 @@
 namespace engine {
     export let run = (canvas: HTMLCanvasElement) => {
 
-        var stage = new DisplayObjectContainer();
+        var stage = engine.Stage.getInstance();
         stage.setWidth(canvas.width);
         stage.setHeight(canvas.height);
         let context2D = canvas.getContext("2d");
@@ -30,6 +30,8 @@ namespace engine {
         let y = e.offsetY - 3;
         TouchEventService.stageX = x;
         TouchEventService.stageY = y;
+        Stage.stageX = TouchEventService.stageX;
+        Stage.stageY = TouchEventService.stageY;
         startPoint.x = x;
         startPoint.y = y;
         movingPoint.x = x;
@@ -46,6 +48,8 @@ namespace engine {
         let y = e.offsetY - 3;
         TouchEventService.stageX = x;
         TouchEventService.stageY = y;
+        Stage.stageX = TouchEventService.stageX;
+        Stage.stageY = TouchEventService.stageY;
         var target = stage.hitTest(x,y);
         if(target == currentTarget){
             TouchEventService.currentType = TouchEventsType.CLICK;
@@ -64,6 +68,8 @@ namespace engine {
             let y = e.offsetY - 3;
             TouchEventService.stageX = x;
             TouchEventService.stageY = y;
+            Stage.stageX = TouchEventService.stageX;
+            Stage.stageY = TouchEventService.stageY;
             TouchEventService.currentType = TouchEventsType.MOUSEMOVE;
             currentTarget = stage.hitTest(x,y);
             TouchEventService.getInstance().toDo();

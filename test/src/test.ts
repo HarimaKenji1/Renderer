@@ -1,5 +1,6 @@
 var canvas = document.getElementById("app") as HTMLCanvasElement;
 var stage = engine.run(canvas);
+var touchService = engine.TouchEventService.getInstance();
 // var bitmap = new engine.Bitmap();
 // engine.RES.getRes("0008.png").then((value) => {
 //     bitmap.texture = value;
@@ -13,6 +14,6 @@ var stage = engine.run(canvas);
 //     //console.log("aaa");
 //     bitmap.setWidth(500);
 // });
- var main = new Main(stage);
+ var main = new Main(stage,touchService);
  main.createGameScene();
 

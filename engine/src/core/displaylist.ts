@@ -32,7 +32,7 @@ export abstract class DisplayObject implements Drawable{
     listeners : TouchEvents[] = [];
     protected width = 1;
     protected height = 1;
-    touchEnabled = false;
+    touchEnabled = true;
     protected normalWidth = -1;
     protected normalHeight = -1;
 
@@ -143,6 +143,19 @@ export abstract class DisplayObject implements Drawable{
 
         return null;
     }
+    }
+}
+
+export class Stage extends engine.DisplayObjectContainer{
+    static stageX = 0;
+    static stageY = 0;
+    static instance : Stage;
+
+    static getInstance(){
+        if(this.instance == null){
+            Stage.instance = new Stage();
+        }
+        return Stage.instance;
     }
 }
 

@@ -19,7 +19,9 @@ class Monster extends engine.DisplayObjectContainer{
         this.width = 64;
         this.height = 64;
         this.monsterPicture = new engine.Bitmap();
-        this.monsterPicture.texture = engine.RES.getRes(pictureId);
+        engine.RES.getRes(pictureId).then((value) => {
+                    this.monsterPicture.texture  = value;
+                    });
         this.addChild(this.monsterPicture);
         this.monsterPicture.x = 0;
         this.monsterPicture.y = 0;

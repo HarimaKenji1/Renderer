@@ -685,7 +685,9 @@ class Main extends engine.DisplayObjectContainer {
                     fight = 0;
                     var textureName = "00" + standArr[n] + "_png";
                     //var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
+                    engine.RES.getRes(textureName).then((value) => {
+                    self.Player.PersonBitmap.texture = value;
+                    });
                     n++;
                     if(n >= standArr.length){
                           n=0;
@@ -701,7 +703,9 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                     var textureName = "00" + walkRightArr[GOR] + "_png";
                     //var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
+                    engine.RES.getRes(textureName).then((value) => {
+                    self.Player.PersonBitmap.texture = value;
+                    });
                     GOR++;
                     if(GOR >= walkRightArr.length){
                           GOR=0;
@@ -714,7 +718,9 @@ class Main extends engine.DisplayObjectContainer {
                               fight = 0;
                     var textureName = "00" + walkRightArr[GOL] + "_2_png";
                     //var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
+                    engine.RES.getRes(textureName).then((value) => {
+                    self.Player.PersonBitmap.texture = value;
+                    });
                     GOL++;
                     if(GOL >= walkRightArr.length){
                           GOL=0;
@@ -730,7 +736,9 @@ class Main extends engine.DisplayObjectContainer {
                         
                         var textureName = "020" + fightArr[fight] + "_png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                    self.Player.PersonBitmap.texture = engine.RES.getRes(textureName);
+                    engine.RES.getRes(textureName).then((value) => {
+                    self.Player.PersonBitmap.texture = value;
+                    });
                         fight++;
                         if(fight >= fightArr.length){
                             fight = 0;

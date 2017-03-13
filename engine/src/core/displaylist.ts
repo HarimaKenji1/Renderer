@@ -234,12 +234,14 @@ export class Bitmap extends DisplayObject{
             // this.height = this.texture.height;
             // this.image = this.texture.data;
             console.log("load complete "+value);
-            console.log(this.width + " hi! " + this.height);
+            // console.log(this.width + " hi! " + this.height);
         })
     }
 
     render(context2D : CanvasRenderingContext2D){
         if(this.texture){
+            this.normalWidth = this.texture.width;
+            this.normalHeight = this.texture.height;
             context2D.drawImage(this.texture,0,0);
         }
         // else{

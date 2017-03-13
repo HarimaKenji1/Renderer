@@ -397,7 +397,9 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
 
     private createBitmapByName(name: string): engine.Bitmap {
         var result = new engine.Bitmap();
-        result.texture = engine.RES.getRes(name);
+        engine.RES.getRes(name).then((value) => {
+                    result.texture = value;
+                    });
         return result;
     }
 

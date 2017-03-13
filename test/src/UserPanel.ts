@@ -40,7 +40,9 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__weaponsOnEquip[0]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                this.weaponIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+                engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.weaponIconBitmap.texture = value;
+                    });
         },this)
         
 
@@ -58,7 +60,9 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__armorOnEquip[0]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                this.helmentIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+                engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.helmentIconBitmap.texture = value;
+                    });
         },this)
 
         this.corselerIconBitmap = new engine.Bitmap();
@@ -75,7 +79,9 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__armorOnEquip[1]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                this.helmentIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+                 engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.helmentIconBitmap.texture = value;
+                    });
         },this)
 
         this.shoesIconBitmap = new engine.Bitmap();
@@ -93,7 +99,9 @@ constructor(){
             this.equipmentInformationPanel.alpha = 1;
             }
             else
-                this.shoesIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+                engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.shoesIconBitmap.texture = value;
+                    });
         },this)
 
         this.heroPicture = new engine.Bitmap();
@@ -124,27 +132,51 @@ constructor(){
     public showHeroInformation(hero : Hero){
         this.hero = hero;
         this.getHeroInformations(hero);
-        this.heroPicture.texture = engine.RES.getRes(hero.heroBitemapID);
+        engine.RES.getRes(hero.heroBitemapID).then((value) => {
+                    this.heroPicture.texture = value;
+                    });
 
-        if(hero.__weaponsOnEquip[0])
-        this.weaponIconBitmap.texture = engine.RES.getRes(hero.__weaponsOnEquip[0].equipmentBitmapID);
-        else
-        this.weaponIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+        if(hero.__weaponsOnEquip[0]){
+            engine.RES.getRes(hero.__weaponsOnEquip[0].equipmentBitmapID).then((value) => {
+                    this.weaponIconBitmap.texture = value;
+                    });
+        }
+        else{
+                    engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.weaponIconBitmap.texture = value;
+                    });
+        }
+        if(hero.__armorOnEquip[0]){
+         engine.RES.getRes(hero.__armorOnEquip[0].equipmentBitmapID).then((value) => {
+                    this.helmentIconBitmap.texture =value;
+                    });
+        }
+        else{
+        engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.helmentIconBitmap.texture =value;
+                    });
+        }
+        if(hero.__armorOnEquip[1]){
+        engine.RES.getRes(hero.__armorOnEquip[1].equipmentBitmapID).then((value) => {
+                    this.corselerIconBitmap.texture = value;
+                    });
+        }
+        else{
+        engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.corselerIconBitmap.texture = value;
+                    });
+        }
 
-        if(hero.__armorOnEquip[0])
-        this.helmentIconBitmap.texture = engine.RES.getRes(hero.__armorOnEquip[0].equipmentBitmapID);
-        else
-        this.helmentIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
-
-        if(hero.__armorOnEquip[1])
-        this.corselerIconBitmap.texture = engine.RES.getRes(hero.__armorOnEquip[1].equipmentBitmapID);
-        else
-        this.corselerIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
-
-        if(hero.__armorOnEquip[2])
-        this.shoesIconBitmap.texture = engine.RES.getRes(hero.__armorOnEquip[2].equipmentBitmapID);
-        else
-        this.shoesIconBitmap.texture = engine.RES.getRes("NoEquipment_png");
+        if(hero.__armorOnEquip[2]){
+        engine.RES.getRes(hero.__armorOnEquip[2].equipmentBitmapID).then((value) => {
+                    this.shoesIconBitmap.texture = value;
+                    });
+        }
+        else{
+        engine.RES.getRes("NoEquipment_png").then((value) => {
+                    this.shoesIconBitmap.texture = value;
+                    });
+        }
         //this.heroInformationTextField.text = this.heroInformationText;
         this.heroInformationTextField.textColor = hero.color;
     }
@@ -165,7 +197,9 @@ constructor(){
 
     private createBitmapByName(name:string):engine.Bitmap {
         var result = new engine.Bitmap();
-        result.texture = engine.RES.getRes(name);
+        engine.RES.getRes(name).then((value) => {
+                    result.texture = value;
+                    });
         return result;
     }
     
@@ -186,7 +220,9 @@ class EquipmentInformationPanel extends engine.DisplayObjectContainer{
         this.height = 400;
 
         this.backGround = new engine.Bitmap();
-        this.backGround.texture = engine.RES.getRes("BlackBackground_png");
+        engine.RES.getRes("BlackBackground_png").then((value) => {
+                    this.backGround.texture = value;
+                    });
         this.backGround.setWidth(250);
         this.backGround.setHeight(400);
         this.addChild(this.backGround);
@@ -232,7 +268,9 @@ class EquipmentInformationPanel extends engine.DisplayObjectContainer{
         this.nameField.text = equipment.name;
         this.nameField.textColor = equipment.color;
         
-        this.equipmentIconBitmap.texture = engine.RES.getRes(equipment.equipmentBitmapID);
+        engine.RES.getRes(equipment.equipmentBitmapID).then((value) => {
+                    this.equipmentIconBitmap.texture = value;
+                    });
         var information : string = "";
 
         for(let i = 0; i < equipment.properties.length; i++){

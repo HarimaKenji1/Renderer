@@ -60,7 +60,7 @@ class FightCommand implements Command{
                 this.player.SetState(new IdleState(),this._tmain);
                 if(this._tmain.monsterAttacking.getMonsterState() == MonsterState.DEAD){
                     this._tmain.screenService.monsterBeenKilled("task_01");
-                    this._tmain.removeChild(this._tmain.monsterAttacking);
+                    this._tmain.removeChild(this._tmain.stage.monsterAttacking);
                 }
                 callback();
             }

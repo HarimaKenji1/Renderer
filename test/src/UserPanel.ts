@@ -16,7 +16,7 @@ constructor(){
         this.width = 480;
         this.height = 600;
 
-        this.background = this.createBitmapByName("UserPanelBackGround_png");
+        this.background = this.createBitmapByName("UserPanelBackGround.png");
         this.addChild(this.background);
         this.background.x = 0;
         this.background.y = 0;
@@ -40,8 +40,10 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__weaponsOnEquip[0]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                engine.RES.getRes("NoEquipment_png").then((value) => {
+                engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.weaponIconBitmap.texture = value;
+                    this.weaponIconBitmap.setWidth(this.weaponIconBitmap.texture.width);
+                    this.weaponIconBitmap.setHeight(this.weaponIconBitmap.texture.height);
                     });
         },this)
         
@@ -60,8 +62,10 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__armorOnEquip[0]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                engine.RES.getRes("NoEquipment_png").then((value) => {
+                engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.helmentIconBitmap.texture = value;
+                    this.helmentIconBitmap.setWidth(this.helmentIconBitmap.texture.width);
+                    this.helmentIconBitmap.setHeight(this.helmentIconBitmap.texture.height);
                     });
         },this)
 
@@ -79,8 +83,10 @@ constructor(){
             this.equipmentInformationPanel.showEquipmentInformation(this.hero.__armorOnEquip[1]);
             this.equipmentInformationPanel.alpha = 1;
             }else
-                 engine.RES.getRes("NoEquipment_png").then((value) => {
+                 engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.helmentIconBitmap.texture = value;
+                    this.helmentIconBitmap.setWidth(this.helmentIconBitmap.texture.width);
+                    this.helmentIconBitmap.setHeight(this.helmentIconBitmap.texture.height);
                     });
         },this)
 
@@ -99,8 +105,10 @@ constructor(){
             this.equipmentInformationPanel.alpha = 1;
             }
             else
-                engine.RES.getRes("NoEquipment_png").then((value) => {
+                engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.shoesIconBitmap.texture = value;
+                    this.shoesIconBitmap.setWidth(this.shoesIconBitmap.texture.width);
+                    this.shoesIconBitmap.setHeight(this.shoesIconBitmap.texture.height);
                     });
         },this)
 
@@ -134,47 +142,65 @@ constructor(){
         this.getHeroInformations(hero);
         engine.RES.getRes(hero.heroBitemapID).then((value) => {
                     this.heroPicture.texture = value;
+                    this.heroPicture.setWidth(this.heroPicture.texture.width);
+                    this.heroPicture.setHeight(this.heroPicture.texture.height);
                     });
 
         if(hero.__weaponsOnEquip[0]){
             engine.RES.getRes(hero.__weaponsOnEquip[0].equipmentBitmapID).then((value) => {
                     this.weaponIconBitmap.texture = value;
+                    this.weaponIconBitmap.setWidth(this.weaponIconBitmap.texture.width);
+                    this.weaponIconBitmap.setHeight(this.weaponIconBitmap.texture.height);
                     });
         }
         else{
-                    engine.RES.getRes("NoEquipment_png").then((value) => {
+                    engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.weaponIconBitmap.texture = value;
+                    this.weaponIconBitmap.setWidth(this.weaponIconBitmap.texture.width);
+                    this.weaponIconBitmap.setHeight(this.weaponIconBitmap.texture.height);
                     });
         }
         if(hero.__armorOnEquip[0]){
          engine.RES.getRes(hero.__armorOnEquip[0].equipmentBitmapID).then((value) => {
                     this.helmentIconBitmap.texture =value;
+                    this.helmentIconBitmap.setWidth(this.helmentIconBitmap.texture.width);
+                    this.helmentIconBitmap.setHeight(this.helmentIconBitmap.texture.height);
                     });
         }
         else{
-        engine.RES.getRes("NoEquipment_png").then((value) => {
+        engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.helmentIconBitmap.texture =value;
+                    this.helmentIconBitmap.setWidth(this.helmentIconBitmap.texture.width);
+                    this.helmentIconBitmap.setHeight(this.helmentIconBitmap.texture.height);
                     });
         }
         if(hero.__armorOnEquip[1]){
         engine.RES.getRes(hero.__armorOnEquip[1].equipmentBitmapID).then((value) => {
                     this.corselerIconBitmap.texture = value;
+                    this.corselerIconBitmap.setWidth(this.corselerIconBitmap.texture.width);
+                    this.corselerIconBitmap.setHeight(this.corselerIconBitmap.texture.height);
                     });
         }
         else{
-        engine.RES.getRes("NoEquipment_png").then((value) => {
+        engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.corselerIconBitmap.texture = value;
+                    this.corselerIconBitmap.setWidth(this.corselerIconBitmap.texture.width);
+                    this.corselerIconBitmap.setHeight(this.corselerIconBitmap.texture.height);
                     });
         }
 
         if(hero.__armorOnEquip[2]){
         engine.RES.getRes(hero.__armorOnEquip[2].equipmentBitmapID).then((value) => {
                     this.shoesIconBitmap.texture = value;
+                    this.shoesIconBitmap.setWidth(this.shoesIconBitmap.texture.width);
+                    this.shoesIconBitmap.setHeight(this.shoesIconBitmap.texture.height);
                     });
         }
         else{
-        engine.RES.getRes("NoEquipment_png").then((value) => {
+        engine.RES.getRes("NoEquipment.png").then((value) => {
                     this.shoesIconBitmap.texture = value;
+                    this.shoesIconBitmap.setWidth(this.shoesIconBitmap.texture.width);
+                    this.shoesIconBitmap.setHeight(this.shoesIconBitmap.texture.height);
                     });
         }
         //this.heroInformationTextField.text = this.heroInformationText;
@@ -199,6 +225,8 @@ constructor(){
         var result = new engine.Bitmap();
         engine.RES.getRes(name).then((value) => {
                     result.texture = value;
+                    result.setWidth(result.texture.width);
+                    result.setHeight(result.texture.height);
                     });
         return result;
     }
@@ -220,8 +248,10 @@ class EquipmentInformationPanel extends engine.DisplayObjectContainer{
         this.height = 400;
 
         this.backGround = new engine.Bitmap();
-        engine.RES.getRes("BlackBackground_png").then((value) => {
+        engine.RES.getRes("BlackBackground.png").then((value) => {
                     this.backGround.texture = value;
+                    this.backGround.setWidth(this.backGround.texture.width);
+                    this.backGround.setHeight(this.backGround.texture.height);
                     });
         this.backGround.setWidth(250);
         this.backGround.setHeight(400);
@@ -270,6 +300,8 @@ class EquipmentInformationPanel extends engine.DisplayObjectContainer{
         
         engine.RES.getRes(equipment.equipmentBitmapID).then((value) => {
                     this.equipmentIconBitmap.texture = value;
+                    this.equipmentIconBitmap.setWidth(this.equipmentIconBitmap.texture.width);
+                    this.equipmentIconBitmap.setHeight(this.equipmentIconBitmap.texture.height);
                     });
         var information : string = "";
 

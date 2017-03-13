@@ -345,7 +345,7 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
         this.width = 256;
         this.height = 317;
 
-        this.background = this.createBitmapByName("renwumianbanbeijing_png");
+        this.background = this.createBitmapByName("renwumianbanbeijing.png");
         this.addChild(this.background);
         this.background.setWidth(256);
         this.background.setHeight(317);
@@ -365,7 +365,7 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
         this.textField.x = 30;
         this.textField.y = 80;
 
-        // this.button = this.createBitmapByName("jieshou_gray_png");
+        // this.button = this.createBitmapByName("jieshou_gray.png");
         // this.ifAccept = true;
         // this.addChild(this.button);
         // this.button.x = 80;
@@ -399,6 +399,8 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
         var result = new engine.Bitmap();
         engine.RES.getRes(name).then((value) => {
                     result.texture = value;
+                    result.setWidth(result.texture.width);
+                    result.setHeight(result.texture.height);
                     });
         return result;
     }
@@ -419,12 +421,12 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
                 //this.button.touchEnabled = true;
                 // if (this.taskList[i].status == TaskStatus.ACCEPTABLE) {
                 //     this.ifAccept = true;
-                //     var texture: egret.Texture = RES.getRes("jieshou_png");
+                //     var texture: egret.Texture = RES.getRes("jieshou.png");
                 //     //this.button.texture = texture;
                 // }
                 // if (this.taskList[i].status == TaskStatus.CAN_SUBMIT) {
                 //     this.ifAccept = false;
-                //     var texture: egret.Texture = RES.getRes("wancheng_png");
+                //     var texture: egret.Texture = RES.getRes("wancheng.png");
                 //     //this.button.texture = texture;
                 // }
                 var statusText : string = "";
@@ -472,13 +474,13 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
     //     this.button.addEventListener(egret.TouchEvent.TOUCH_TAP,()=>{
     //         if(this.ifAccept){
     //             TaskService.getInstance().accept(this.duringTaskId);
-    //             var texture : egret.Texture = RES.getRes("wancheng_gray_png");
+    //             var texture : egret.Texture = RES.getRes("wancheng_gray.png");
     //             this.button.texture = texture;
     //             //egret.Tween.get(this).to({alpha : 0},500);
     //         }
     //         if(!this.ifAccept){
     //             TaskService.getInstance().finish(this.duringTaskId);
-    //             var texture : egret.Texture = RES.getRes("jieshou_gray_png");
+    //             var texture : egret.Texture = RES.getRes("jieshou_gray.png");
     //             this.button.texture = texture;
     //             //egret.Tween.get(this).to({alpha : 0},500);
     //         }

@@ -21,6 +21,8 @@ class Monster extends engine.DisplayObjectContainer{
         this.monsterPicture = new engine.Bitmap();
         engine.RES.getRes(pictureId).then((value) => {
                     this.monsterPicture.texture  = value;
+                    this.monsterPicture.setWidth(this.monsterPicture.texture.width);
+                        this.monsterPicture.setHeight(this.monsterPicture.texture.height);
                     });
         this.addChild(this.monsterPicture);
         this.monsterPicture.x = 0;
@@ -79,8 +81,8 @@ class MonsterService{
 
 function creatMonster(id:string){
         var data = {
-            "slime01":{id:"slime01",name:"slime",pictureId:"Slime_png",maxHP:100,x:64 * 5,y:64*4},
-            "slime02":{id:"slime02",name:"slime",pictureId:"Slime_png",maxHP:100,x:64 * 4,y:64*6},
+            "slime01":{id:"slime01",name:"slime",pictureId:"Slime.png",maxHP:100,x:64 * 5,y:64*4},
+            "slime02":{id:"slime02",name:"slime",pictureId:"Slime.png",maxHP:100,x:64 * 4,y:64*6},
         }
         var info = data[id];
         if (!info) {

@@ -29,7 +29,7 @@
 
 
 
-
+let TIME = 0;
 
 class Main extends engine.DisplayObjectContainer {
 
@@ -116,23 +116,23 @@ class Main extends engine.DisplayObjectContainer {
 
     private textfield:engine.TextField;
     private EventPoint : engine.Point = new engine.Point(0,0);
-    public IdlePictures:engine.Bitmap[] = [
-        this.createBitmapByName("0008_png"),this.createBitmapByName("0009_png"),this.createBitmapByName("0010_png"),
-        this.createBitmapByName("0011_png"),this.createBitmapByName("0012_png"),this.createBitmapByName("0013_png"),
-        this.createBitmapByName("0014_png"),this.createBitmapByName("0015_png"),this.createBitmapByName("0016_png"),
-        this.createBitmapByName("0017_png"),this.createBitmapByName("0018_png"),this.createBitmapByName("0019_png")];
+    // public IdlePictures:engine.Bitmap[] = [
+    //     this.createBitmapByName("0008.png"),this.createBitmapByName("0009.png"),this.createBitmapByName("0010.png"),
+    //     this.createBitmapByName("0011.png"),this.createBitmapByName("0012.png"),this.createBitmapByName("0013.png"),
+    //     this.createBitmapByName("0014.png"),this.createBitmapByName("0015.png"),this.createBitmapByName("0016.png"),
+    //     this.createBitmapByName("0017.png"),this.createBitmapByName("0018.png"),this.createBitmapByName("0019.png")];
 
-    public WalkingRightPictures:engine.Bitmap[] = [
-        this.createBitmapByName("0024_png"),this.createBitmapByName("0025_png"),this.createBitmapByName("0026_png"),
-        this.createBitmapByName("0027_png"),this.createBitmapByName("0028_png"),this.createBitmapByName("0029_png"),
-        this.createBitmapByName("0030_png"),this.createBitmapByName("0031_png"),this.createBitmapByName("0032_png"),
-        this.createBitmapByName("0033_png"),this.createBitmapByName("0034_png")];
+    // public WalkingRightPictures:engine.Bitmap[] = [
+    //     this.createBitmapByName("0024.png"),this.createBitmapByName("0025.png"),this.createBitmapByName("0026.png"),
+    //     this.createBitmapByName("0027.png"),this.createBitmapByName("0028.png"),this.createBitmapByName("0029.png"),
+    //     this.createBitmapByName("0030.png"),this.createBitmapByName("0031.png"),this.createBitmapByName("0032.png"),
+    //     this.createBitmapByName("0033.png"),this.createBitmapByName("0034.png")];
 
-    public WalkingLeftPictures:engine.Bitmap[] = [
-        this.createBitmapByName("0024_2_png"),this.createBitmapByName("0025_2_png"),this.createBitmapByName("0026_2_png"),
-        this.createBitmapByName("0027_2_png"),this.createBitmapByName("0028_2_png"),this.createBitmapByName("0029_2_png"),
-        this.createBitmapByName("0030_2_png"),this.createBitmapByName("0031_2_png"),this.createBitmapByName("0032_2_png"),
-        this.createBitmapByName("0033_2_png"),this.createBitmapByName("0034_2_png")];
+    // public WalkingLeftPictures:engine.Bitmap[] = [
+    //     this.createBitmapByName("0024_2.png"),this.createBitmapByName("0025_2.png"),this.createBitmapByName("0026_2.png"),
+    //     this.createBitmapByName("0027_2.png"),this.createBitmapByName("0028_2.png"),this.createBitmapByName("0029_2.png"),
+    //     this.createBitmapByName("0030_2.png"),this.createBitmapByName("0031_2.png"),this.createBitmapByName("0032_2.png"),
+    //     this.createBitmapByName("0033_2.png"),this.createBitmapByName("0034_2.png")];
 
     public Player : Person;
     private GoalPoint : engine.Point = new engine.Point(-1,-1);
@@ -213,7 +213,7 @@ class Main extends engine.DisplayObjectContainer {
      * 创建游戏场景
      * Create a game scene
      */
-    private createGameScene():void {
+     createGameScene():void {
         // this.Stage01Background = this.createBitmapByName("BackGround_jpg");
         // this.addChild(this.Stage01Background);
         // this.Stage01Background.width = stageH * 3.1;
@@ -230,7 +230,7 @@ class Main extends engine.DisplayObjectContainer {
         var stageH:number = this.stage.stageHeight;
 
         this.map01 = new TileMap();
-        this.addChild(this.map01);
+        this.stage.addChild(this.map01);
 
         TaskService.getInstance();
         //TaskService.getInstance().init();
@@ -247,18 +247,18 @@ class Main extends engine.DisplayObjectContainer {
         
 
         
-        this.addChild(this.taskPanel);
+        this.stage.addChild(this.taskPanel);
         this.taskPanel.x = this.stage.width - this.taskPanel.getWidth();
         this.taskPanel.y = 0;
 
         
 
 
-        this.NPC01 = new NPC("npc_0","NPC_Man_01_png",this.Npc01Dialogue);
+        this.NPC01 = new NPC("npc_0","NPC_Man_01.png",this.Npc01Dialogue);
         this.NPC01.setTaskAcceptDialogue(this.Npc01AcceptDialogue);
         this.npcList.push(this.NPC01);
 
-        this.NPC02 = new NPC("npc_1","NPC_Man_02_png",this.Npc02Dialogue);
+        this.NPC02 = new NPC("npc_1","NPC_Man_02.png",this.Npc02Dialogue);
         this.NPC02.setTaskAcceptDialogue(this.Npc02AcceptDialogue);
         this.NPC02.setTaskSubmitDialogue(this.Npc02SubmitDialogue);
         this.npcList.push(this.NPC02);
@@ -269,7 +269,7 @@ class Main extends engine.DisplayObjectContainer {
         //this.slime = new Monster("Slime01","slime","Slime_png",100);
         for(var id of this.monsterIdList){
         var temp = creatMonster(id);
-        this.addChild(temp);
+        this.stage.addChild(temp);
         temp.x = temp.posX;
         temp.y = temp.posY;
         MonsterService.getInstance().addMonster(temp);
@@ -282,22 +282,22 @@ class Main extends engine.DisplayObjectContainer {
 
 
 
-        this.addChild(this.NPC01);
+        this.stage.addChild(this.NPC01);
         this.NPC01.x = 128;
         this.NPC01.y = 128;
 
-        this.addChild(this.NPC02);
+        this.stage.addChild(this.NPC02);
         this.NPC02.x = 256;
         this.NPC02.y = 320;
 
         this.dialoguePanel = DialoguePanel.getInstance() ;
         this.dialoguePanel.SetMain(this);
-        this.addChild(this.dialoguePanel);
+        this.stage.addChild(this.dialoguePanel);
         this.dialoguePanel.x = 200;
         this.dialoguePanel.y = 200;
 
-        this.userPanelButton = this.createBitmapByName("userPanelButton_png");
-        this.addChild(this.userPanelButton);
+        this.userPanelButton = this.createBitmapByName("userPanelButton.png");
+        this.stage.addChild(this.userPanelButton);
         this.userPanelButton.x = 10 * 64 - this.userPanelButton.getWidth();
         this.userPanelButton.y = 0;
 
@@ -305,7 +305,7 @@ class Main extends engine.DisplayObjectContainer {
 
         
 
-         this.addChild(this.Player.PersonBitmap);
+         this.stage.addChild(this.Player.PersonBitmap);
          this.Player.PersonBitmap.x = 0;
          this.Player.PersonBitmap.y = 0;
 
@@ -316,12 +316,12 @@ class Main extends engine.DisplayObjectContainer {
          this.astar = new AStar();
 
          this.user = new User("Player01",1);
-         this.hero = new Hero("H001","FemaleSaberHero01",Quality.ORAGE,1,"FemaleSaberHero01_png",HeroType.SABER);
-         this.sword = new Weapon("W001","LeagendSword01",Quality.ORAGE,WeaponType.HANDSWORD,"OrangeSword01_png");
-         this.lance = new Weapon("W002","LeagendLance01",Quality.ORAGE,WeaponType.LANCE,"OrageLance01_png")
-         this.helment = new Armor("A001","Purplrhelment01",Quality.PURPLE,ArmorType.LIGHTARMOR,"PurpleHelmet01_png");
-         this.corseler = new Armor("A002","GreenCorseler01",Quality.GREEN,ArmorType.LIGHTARMOR,"GreenCorseler01_png");
-         this.shoes = new Armor("A003","BlueShoes01",Quality.BLUE,ArmorType.LIGHTARMOR,"BlueShoes01_png");
+         this.hero = new Hero("H001","FemaleSaberHero01",Quality.ORAGE,1,"FemaleSaberHero01.png",HeroType.SABER);
+         this.sword = new Weapon("W001","LeagendSword01",Quality.ORAGE,WeaponType.HANDSWORD,"OrangeSword01.png");
+         this.lance = new Weapon("W002","LeagendLance01",Quality.ORAGE,WeaponType.LANCE,"OrageLance01.png")
+         this.helment = new Armor("A001","Purplrhelment01",Quality.PURPLE,ArmorType.LIGHTARMOR,"PurpleHelmet01.png");
+         this.corseler = new Armor("A002","GreenCorseler01",Quality.GREEN,ArmorType.LIGHTARMOR,"GreenCorseler01.png");
+         this.shoes = new Armor("A003","BlueShoes01",Quality.BLUE,ArmorType.LIGHTARMOR,"BlueShoes01.png");
          this.weaponJewel = new Jewel("J001","传说武器宝石",Quality.ORAGE);
          this.armorJewel = new Jewel("J002","普通防具宝石",Quality.WHITE);
          
@@ -370,7 +370,7 @@ class Main extends engine.DisplayObjectContainer {
          //this.userPanel.equipmentInformationPanel.showEquipmentInformation(this.sword);
 
          this.userPanelButton.addEventListener(engine.TouchEventsType.CLICK,(e : engine.TouchEvents)=>{
-            this.addChild(this.userPanel);
+            this.stage.addChild(this.userPanel);
             this.userPanel.showHeroInformation(this.hero);
             //console.log("upbdown");
         },this)
@@ -389,7 +389,7 @@ class Main extends engine.DisplayObjectContainer {
             NPC.npcIsChoose = null;
             this.ifFight = false;
             if(this.userPanelIsOn && (e.stageX < this.userPanel.x || e.stageX > this.userPanel.x + this.userPanel.getWidth() || e.stageY < this.userPanel.y || e.stageY > this.userPanel.y + this.userPanel.getHeight()) ){
-            this.removeChild(this.userPanel);
+            this.stage.removeChild(this.userPanel);
             this.userPanelIsOn = false;
             }
             this.playerx = Math.floor(this.Player.PersonBitmap.x / this.tileSize);
@@ -463,7 +463,7 @@ class Main extends engine.DisplayObjectContainer {
             this.map01.startTile = this.map01.endTile;
 
             if(this.EventPoint.x >= this.userPanelButton.x && this.EventPoint.y <= this.userPanelButton.getHeight()){
-                this.addChild(this.userPanel);
+                this.stage.addChild(this.userPanel);
                 this.userPanel.showHeroInformation(this.hero);
                 this.userPanelIsOn = true;
             }
@@ -683,10 +683,12 @@ class Main extends engine.DisplayObjectContainer {
                     GOR = 0;
                     GOL = 0;
                     fight = 0;
-                    var textureName = "00" + standArr[n] + "_png";
+                    var textureName = "00" + standArr[n] + ".png";
                     //var texture : egret.Texture = RES.getRes(textureName);
                     engine.RES.getRes(textureName).then((value) => {
                     self.Player.PersonBitmap.texture = value;
+                    self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
+                    self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                     });
                     n++;
                     if(n >= standArr.length){
@@ -701,10 +703,12 @@ class Main extends engine.DisplayObjectContainer {
                         n = 0;
                         GOL = 0;
                         fight = 0;
-                    var textureName = "00" + walkRightArr[GOR] + "_png";
+                    var textureName = "00" + walkRightArr[GOR] + ".png";
                     //var texture : egret.Texture = RES.getRes(textureName);
                     engine.RES.getRes(textureName).then((value) => {
                     self.Player.PersonBitmap.texture = value;
+                    self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
+                    self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                     });
                     GOR++;
                     if(GOR >= walkRightArr.length){
@@ -716,10 +720,12 @@ class Main extends engine.DisplayObjectContainer {
                               n = 0;
                               GOR = 0;
                               fight = 0;
-                    var textureName = "00" + walkRightArr[GOL] + "_2_png";
+                    var textureName = "00" + walkRightArr[GOL] + "_2.png";
                     //var texture : egret.Texture = RES.getRes(textureName);
                     engine.RES.getRes(textureName).then((value) => {
                     self.Player.PersonBitmap.texture = value;
+                    self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
+                    self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                     });
                     GOL++;
                     if(GOL >= walkRightArr.length){
@@ -734,10 +740,12 @@ class Main extends engine.DisplayObjectContainer {
                         GOL = 0;
                         n = 0;
                         
-                        var textureName = "020" + fightArr[fight] + "_png";
+                        var textureName = "020" + fightArr[fight] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
                     engine.RES.getRes(textureName).then((value) => {
                     self.Player.PersonBitmap.texture = value;
+                    self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
+                    self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                     });
                         fight++;
                         if(fight >= fightArr.length){

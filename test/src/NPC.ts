@@ -66,15 +66,19 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
 
 
                 if(taskList[taskId].fromNpcId == this.NPCId && taskList[taskId].status == TaskStatus.ACCEPTABLE){
-                   engine.RES.getRes("tanhao_yellow_png").then((value) => {
+                   engine.RES.getRes("tanhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                    this.taskList[taskId] = taskList[taskId];
                 }
 
                 if(this.NPCId  == taskList[taskId].toNpcId && taskList[taskId].status == TaskStatus.CAN_SUBMIT){
-                   engine.RES.getRes("wenhao_yellow_png").then((value) => {
+                   engine.RES.getRes("wenhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                    this.taskList[taskId] = taskList[taskId];
                 }
@@ -99,8 +103,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
 
             if(this.NPCId == task.fromNpcId && task.status == TaskStatus.ACCEPTABLE){
                this.emoji.alpha = 1;
-               engine.RES.getRes("tanhao_yellow_png").then((value) => {
+               engine.RES.getRes("tanhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                this.taskList[task.id].status = TaskStatus.ACCEPTABLE;
                return;
@@ -108,8 +114,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
 
             if(this.NPCId == task.toNpcId && task.status == TaskStatus.CAN_SUBMIT){
                 this.emoji.alpha = 1;
-               engine.RES.getRes("wenhao_yellow_png").then((value) => {
+               engine.RES.getRes("wenhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                this.taskList[task.id].status = TaskStatus.CAN_SUBMIT;
                this.canSumbitTaskList[task.id] = task;
@@ -134,8 +142,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.canSumbitTaskList[taskId].toNpcId 
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT){
                         this.emoji.alpha = 1;
-                    engine.RES.getRes("wenhao_yellow_png").then((value) => {
+                    engine.RES.getRes("wenhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                         return;
                     }
@@ -144,8 +154,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.taskList[taskId].fromNpcId 
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                        this.emoji.alpha = 1;
-                    engine.RES.getRes("tanhao_yellow_png").then((value) => {
+                    engine.RES.getRes("tanhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                     });
                        return;
                     }
@@ -160,8 +172,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.canSumbitTaskList[taskId].toNpcId 
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT){
                         this.emoji.alpha = 1;
-                        engine.RES.getRes("wenhao_yellow_png").then((value) => {
+                        engine.RES.getRes("wenhao_yellow.png").then((value) => {
                         this.emoji.texture = value;
+                        this.emoji.setWidth(this.emoji.texture.width);
+                        this.emoji.setHeight(this.emoji.texture.height);
                         });
                         return;
                     }
@@ -170,8 +184,10 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     if(this.NPCId == this.taskList[taskId].fromNpcId 
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                        this.emoji.alpha = 1;
-                    engine.RES.getRes("tanhao_yellow_png").then((value) => {
+                    engine.RES.getRes("tanhao_yellow.png").then((value) => {
                     this.emoji.texture = value;
+                    this.emoji.setWidth(this.emoji.texture.width);
+                    this.emoji.setHeight(this.emoji.texture.height);
                     });
                        return;
                     }
@@ -208,13 +224,13 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     DialoguePanel.getInstance().alpha = 0.8;
                     //console.log("Give me dialogue");
                     DialoguePanel.getInstance().buttonTouchEnable(true);
-                    DialoguePanel.getInstance().setButtonBitmap("wancheng_png");
+                    DialoguePanel.getInstance().setButtonBitmap("wancheng.png");
                     DialoguePanel.getInstance().setIfAccept(false);
                     DialoguePanel.getInstance().setDuringTask(this.canSumbitTaskList[taskId]);
                     //DialoguePanel.getInstance().setDuringTaskConditionType(this.canSumbitTaskList[taskId].conditionType);
                     //DialoguePanel.getInstance().setDuringTaskCondition(this.taskList[taskId].getCondition());
                     DialoguePanel.getInstance().setDialogueText(this.taskSubmitDialogue);
-                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang_png");
+                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang.png");
                     TaskService.getInstance().canFinish(taskId);
                     return;
                 }
@@ -229,13 +245,13 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                 if(this.NPCId == this.taskList[taskId].fromNpcId && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                     DialoguePanel.getInstance().alpha = 0.8;
                     DialoguePanel.getInstance().buttonTouchEnable(true);
-                    DialoguePanel.getInstance().setButtonBitmap("jieshou_png");
+                    DialoguePanel.getInstance().setButtonBitmap("jieshou.png");
                     DialoguePanel.getInstance().setIfAccept(true);
                     DialoguePanel.getInstance().setDuringTask(this.taskList[taskId]);
                     //DialoguePanel.getInstance().setDuringTaskConditionType(this.taskList[taskId].conditionType);
                     //DialoguePanel.getInstance().setDuringTaskCondition(this.taskList[taskId].getCondition());
                     DialoguePanel.getInstance().setDialogueText(this.taskAcceptDialogue);
-                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang_png");
+                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang.png");
                     //TaskService.getInstance().canAccept(taskId);
                     x++;
                     break;
@@ -245,13 +261,13 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                     DialoguePanel.getInstance().alpha = 0.8;
                     //console.log("Give me dialogue");
                     DialoguePanel.getInstance().buttonTouchEnable(true);
-                    DialoguePanel.getInstance().setButtonBitmap("wancheng_png");
+                    DialoguePanel.getInstance().setButtonBitmap("wancheng.png");
                     DialoguePanel.getInstance().setIfAccept(false);
                     DialoguePanel.getInstance().setDuringTask(this.taskList[taskId]);
                     //DialoguePanel.getInstance().setDuringTaskConditionType(this.taskList[taskId].conditionType);
                     //DialoguePanel.getInstance().setDuringTaskCondition(this.taskList[taskId].getCondition());
                     DialoguePanel.getInstance().setDialogueText(this.taskSubmitDialogue);
-                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang_png");
+                    DialoguePanel.getInstance().setBackgroundBitmap("duihuakuang.png");
                     //TaskService.getInstance().canFinish(taskId);
                     x++;
                     break;
@@ -276,6 +292,8 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
         var result = new engine.Bitmap();
         engine.RES.getRes(name).then((value) => {
                     result.texture = value;
+                    result.setWidth(result.texture.width);
+                    result.setHeight(result.texture.height);
                     });
         return result;
     }
@@ -311,7 +329,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         this.height = 300;
         
 
-        this.background = this.createBitmapByName("duihuakuang_png");
+        this.background = this.createBitmapByName("duihuakuang.png");
         this.addChild(this.background);
         this.background.x = 0;
         this.background.y = 0;
@@ -319,7 +337,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         this.background.setHeight(300);
 
 
-        this.button = this.createBitmapByName("jieshou_gray_png");
+        this.button = this.createBitmapByName("jieshou_gray.png");
         this.addChild(this.button);
         this.button.setWidth(100);
         this.height = 50;
@@ -338,6 +356,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         this.textField.textColor = "0xffffff";
 
         //this.alpha = 1;
+        this.alpha = 0;
 
         this.onClick();
     
@@ -351,6 +370,8 @@ class DialoguePanel extends engine.DisplayObjectContainer{
     public setButtonBitmap(buttonBitmapCode : string){
         engine.RES.getRes(buttonBitmapCode).then((value) => {
                     this.button.texture = value;
+                    this.button.setWidth(this.button.texture.width);
+                    this.button.setHeight(this.button.texture.height);
                     });
         // console.log(texture);
         // console.log(this.button.texture);
@@ -388,8 +409,10 @@ class DialoguePanel extends engine.DisplayObjectContainer{
     }
 
     public setBackgroundBitmap(backgroundCode :string){
-                engine.RES.getRes("duihuakuang_png").then((value) => {
+                engine.RES.getRes("duihuakuang.png").then((value) => {
                     this.background.texture = value;
+                    this.background.setWidth(this.background.texture.width);
+                    this.background.setHeight(this.background.texture.height);
                     });
     }
 
@@ -399,8 +422,10 @@ class DialoguePanel extends engine.DisplayObjectContainer{
             if(this.ifAccept){
                //TaskService.getInstance().accept(this.duringTask.id);
                this.duringTask.accept();
-                engine.RES.getRes("wancheng_gray_png").then((value) => {
+                engine.RES.getRes("wancheng_gray.png").then((value) => {
                     this.button.texture = value;
+                    this.button.setWidth(this.button.texture.width);
+                    this.button.setHeight(this.button.texture.height);
                     });
                 if(this.duringTask.conditionType == "npctalk"){
                     this.duringTask.updateProccess(1);
@@ -417,8 +442,10 @@ class DialoguePanel extends engine.DisplayObjectContainer{
             if(!this.ifAccept){
                 //TaskService.getInstance().finish(this.duringTask.id);
                 this.duringTask.submit();
-                 engine.RES.getRes("jieshou_gray_png").then((value) => {
+                 engine.RES.getRes("jieshou_gray.png").then((value) => {
                     this.button.texture = value;
+                    this.button.setWidth(this.button.texture.width);
+                    this.button.setHeight(this.button.texture.height);
                     });
                 
                 //egret.Tween.get(this).to({alpha : 0},1000);
@@ -433,6 +460,8 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         var result = new engine.Bitmap();
         engine.RES.getRes(name).then((value) => {
                     result.texture = value;
+                    result.setWidth(result.texture.width);
+                    result.setHeight(result.texture.height);
                     });
         return result;
     }

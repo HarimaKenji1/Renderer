@@ -223,7 +223,8 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                 if(this.NPCId == this.canSumbitTaskList[taskId].toNpcId && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT){
                     DialoguePanel.getInstance().alpha = 0.8;
                     //console.log("Give me dialogue");
-                    DialoguePanel.getInstance().buttonTouchEnable(true);
+                    // DialoguePanel.getInstance().buttonTouchEnable(true);
+                    DialoguePanel.getInstance().button.touchEnabled = true;
                     DialoguePanel.getInstance().setButtonBitmap("wancheng.png");
                     DialoguePanel.getInstance().setIfAccept(false);
                     DialoguePanel.getInstance().setDuringTask(this.canSumbitTaskList[taskId]);
@@ -244,7 +245,8 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
 
                 if(this.NPCId == this.taskList[taskId].fromNpcId && this.taskList[taskId].status == TaskStatus.ACCEPTABLE){
                     DialoguePanel.getInstance().alpha = 0.8;
-                    DialoguePanel.getInstance().buttonTouchEnable(true);
+                    // DialoguePanel.getInstance().buttonTouchEnable(true);
+                    DialoguePanel.getInstance().button.touchEnabled = true;
                     DialoguePanel.getInstance().setButtonBitmap("jieshou.png");
                     DialoguePanel.getInstance().setIfAccept(true);
                     DialoguePanel.getInstance().setDuringTask(this.taskList[taskId]);
@@ -260,7 +262,8 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
                 if(this.NPCId == this.taskList[taskId].toNpcId && this.taskList[taskId].status == TaskStatus.CAN_SUBMIT){
                     DialoguePanel.getInstance().alpha = 0.8;
                     //console.log("Give me dialogue");
-                    DialoguePanel.getInstance().buttonTouchEnable(true);
+                    // DialoguePanel.getInstance().buttonTouchEnable(true);
+                     DialoguePanel.getInstance().button.touchEnabled = true;
                     DialoguePanel.getInstance().setButtonBitmap("wancheng.png");
                     DialoguePanel.getInstance().setIfAccept(false);
                     DialoguePanel.getInstance().setDuringTask(this.taskList[taskId]);
@@ -302,7 +305,7 @@ class NPC  extends engine.DisplayObjectContainer implements Observer {
 class DialoguePanel extends engine.DisplayObjectContainer{
 
     private textField : engine.TextField;
-    private button : engine.Bitmap;
+    public button : engine.Bitmap;
     private dialogue : string[] = [];
     private background : engine.Bitmap;
     private ifAccept : boolean = false;
@@ -353,7 +356,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         this.textField.x = 40;
         this.textField.y = 40;
         this.textField.size = 20;
-        this.textField.textColor = "0xffffff";
+        this.textField.textColor = "#ffffff";
 
         //this.alpha = 1;
         this.alpha = 0;
@@ -422,6 +425,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
             if(this.ifAccept){
                //TaskService.getInstance().accept(this.duringTask.id);
                this.duringTask.accept();
+               this.button.touchEnabled = false;
                 engine.RES.getRes("wancheng_gray.png").then((value) => {
                     this.button.texture = value;
                     this.button.setWidth(this.button.texture.width);

@@ -330,6 +330,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         super();
         this.width = 300;
         this.height = 300;
+        this.touchEnabled = true;
         
 
         this.background = this.createBitmapByName("duihuakuang.png");
@@ -343,7 +344,7 @@ class DialoguePanel extends engine.DisplayObjectContainer{
         this.button = this.createBitmapByName("jieshou_gray.png");
         this.addChild(this.button);
         this.button.setWidth(100);
-        this.height = 50;
+        this.button.setHeight(50);
         this.button.x = 100;
         this.button.y = 200;
         this.button.touchEnabled = false;

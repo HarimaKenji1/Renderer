@@ -292,7 +292,7 @@ class Main extends engine.DisplayObjectContainer {
         this.NPC02.x = 256;
         this.NPC02.y = 320;
 
-        this.dialoguePanel = DialoguePanel.getInstance() ;
+        this.dialoguePanel = DialoguePanel.getInstance();
         this.dialoguePanel.SetMain(this);
         this.stage.addChild(this.dialoguePanel);
         this.dialoguePanel.x = 200;
